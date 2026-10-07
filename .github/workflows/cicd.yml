@@ -19,7 +19,7 @@ jobs:
   # ---------------------------------------------------------------------------
   unit-test:
     name: Unit Test
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ubuntu-latest]
     steps:
       - uses: actions/checkout@v4
 
@@ -42,7 +42,7 @@ jobs:
   train:
     name: Train
     needs: unit-test
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ubuntu-latest]
     outputs:
       f1: ${{ steps.read_report.outputs.f1 }}
 
@@ -126,7 +126,7 @@ jobs:
   quality-gate:
     name: Quality Gate
     needs: train
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ubuntu-latest]
     steps:
 
       - name: Check quality gate
@@ -148,7 +148,7 @@ jobs:
   release:
     name: Release
     needs: quality-gate
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, ubuntu-latest]
     steps:
 
       - name: SSH deploy to VM
